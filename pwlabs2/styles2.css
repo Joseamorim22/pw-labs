@@ -1,0 +1,109 @@
+/* Estilos para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para o contêiner */
+.container {
+    max-width:fit-content;
+    margin: 20px auto;
+    padding: 20px;
+    position: relative; /* Adicionado para posicionar as opções e o formulário corretamente */
+}
+
+/* Estilos para o título */
+h2 {
+    margin-bottom: 30px;
+    text-align: center; /* Centraliza o título */
+}
+
+/* Estilos para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 20px;
+    border: 1px solid #000;
+    text-align: center; /* Centraliza o conteúdo da tabela */
+}
+
+table th {
+    background-color: #023fb9;
+    color: #fff;
+}
+
+table td button {
+    background-color: #524545;
+    color: #fff;
+    border: none;
+    padding: 5px 20px;
+    cursor: pointer; /* Adiciona cursor ao passar sobre os botões */
+}
+
+table td button:hover {
+    background-color: #524545;
+}
+
+/* Estilos para as opções */
+.opçoes {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* Estilos para o formulário de adição */
+.adicionar {
+    text-align: center;
+    margin-top: 20px; /* Ajustado o espaçamento do topo */
+}
+
+/* Estilos para os campos de entrada */
+input[type="text"],
+input[type="date"] {
+    width: 40%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing:border-box;
+}
+
+/* Estilos para os botões */
+button,
+input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #524545;    
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: #524545;
+}
+
+/* Estilos para os links */
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+/* Estilos para os links hover */
+a:hover {
+    text-decoration: underline;
+}
+.gerir{
+    margin-left: 20px;
+}
+.editar{
+    margin-left: 20px;
+}

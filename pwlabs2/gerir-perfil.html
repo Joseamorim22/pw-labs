@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Profile</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <h2>Manage Profile</h2>
+    <div class="gerir">
+
+    <!-- Form to edit the profile -->
+    <form id="edit-profile-form">
+        <label for="first-name">First Name:</label><br>
+        <input type="text" id="first-name" name="first-name" required><br><br>
+
+        <label for="last-name">Last Name:</label><br>
+        <input type="text" id="last-name" name="last-name" required><br><br>
+
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="birthdate">Birth Date:</label><br>
+        <input type="date" id="birthdate" name="birthdate" required><br><br>
+       
+        <input type="submit" value="Save Changes">
+        <button onclick="goBack()">Discard Changes</button>
+    </form>
+    </div>
+
+    <script>
+        // Function to load the user's profile details
+        window.onload = function() {
+            // Retrieve the profile details from localStorage
+            var profileDetails = JSON.parse(localStorage.getItem("profileDetails")) || {};
+
+            // Fill the form with the profile details
+            document.getElementById("first-name").value = profileDetails.firstName || "";
+            document.getElementById("last-name").value = profileDetails.lastName || "";
+            document.getElementById("username").value = profileDetails.username || "";
+            document.getElementById("email").value = profileDetails.email || "";
+            document.getElementById("birthdate").value = profileDetails.birthdate || "";
+        };
+        // Function to save the profile changes
+        document.getElementById("edit-profile-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the values from the form
+            var editedFirstName = document.getElementById("first-name").value;
+            var editedLastName = document.getElementById("last-name").value;
+            var editedUsername = document.getElementById("username").value;
+            var editedEmail = document.getElementById("email").value;
+            var editedBirthdate = document.getElementById("birthdate").value;
+
+            // Create an object representing the profile details
+            var profileDetails = {
+                firstName: editedFirstName,
+                lastName: editedLastName,
+                username: editedUsername,
+                email: editedEmail,
+                birthdate: editedBirthdate,
+            };
+            // Save profile details to local storage
+                localStorage.setItem("profileDetails", JSON.stringify(profileDetails));
+
+            // Update the username in local storage
+                localStorage.setItem("username", editedUsername);
+
+            // Redirect to the tasks page
+                window.location.href = "tarefas.html";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Recovery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Title -->
+        <h2>Password Recovery</h2>
+        <!-- Instruction -->
+        <p>Enter your email to recover your password:</p>
+        <!-- Form -->
+        <form action="login.html">
+            <label for="email"></label><br>
+            <input type="email" id="email" name="email"placeholder="Email" required><br>
+            <input type="submit" value="Recover Password"" onclick="enviarNovaSenha()">
+        </form>        <!-- Link to go back to the login page -->
+        <a href="login.html">Back to login page</a><br>
+    </div>
+    <script>
+        function enviarNovaSenha() {
+          alert("Um email com a nova senha foi enviado para o remetente.");
+        }
+        </script> 
+</body>
+</html>
+

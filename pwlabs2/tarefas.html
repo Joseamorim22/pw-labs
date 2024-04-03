@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <div class="container">
+        <h2 id="greeting">Hello, User</h2>
+        <img id="profile-pic" src="https://gmconline.com.br/wp-content/uploads/2023/02/Galo-Cego-3-2.jpg" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; display: block; margin: 0 auto 20px;">
+        
+        <table border="1">
+            <caption>Tasks</caption>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="task-list">
+                <!-- Tasks will be added here dynamically with JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <div class="opçoes">
+
+        <!-- Links to manage profile and log out -->
+        <a id="manage" href="gerir-perfil.html">Manage Profile</a>
+        <a id="logout" href="login.html">Log Out</a>
+    </div>
+    <div class="adicionar">
+
+        <!-- Form to add a new task -->
+        <form id="add-task-form">
+            <input type="text" id="task-name" placeholder="Task Name" required>
+            <input type="date" id="task-date" required>
+            <input type="submit" value="Add Task">
+        </form>
+    </div>
+    <script>
+        // Function to display the profile picture
+        function displayProfilePic() {
+            var profilePic = localStorage.getItem("profilePic");
+            if (profilePic) {
+                document.getElementById("profile-pic").src = profilePic;
+            }
+        }
+
+    </script>
+
+    <script>
+        // Retrieve the username from local storage
+            var username = localStorage.getItem("username") || "User";
+
+        // Display the username in the greeting
+            document.getElementById("greeting").textContent = "Hello, " + username;
+
+        
+        // Function to add a new task
+        document.getElementById("add-task-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the values from the input fields
+            var taskName = document.getElementById("task-name").value;
+            var taskDate = document.getElementById("task-date").value;
+
+            // Create an object representing the task
+            var task = {
+                name: taskName,
+                date: taskDate,
+                status: "Pending"
+            };
+
+            // Add the task to the tasks list in localStorage
+            var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.push(task);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+
+            // Update the display of the task list
+            displayTasks();
+
+            // Clear the form fields
+            document.getElementById("task-name").value = "";
+            document.getElementById("task-date").value = "";
+        });
+
+        // Function to display the saved tasks
+        function displayTasks() {
+            var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            var taskList = document.getElementById("task-list");
+            taskList.innerHTML = ""; // Clear the task list before updating it
+
+            tasks.forEach(function(task, index) {
+                var newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${task.name}</td>
+                    <td>${task.date}</td>
+                    <td>${task.status}</td>
+                    <td>
+                        <button onclick="editTask(${index})">Edit</button>
+                        <button onclick="removeTask(${index})">Remove</button>
+                        <input type="checkbox" ${task.status === "Done" ? "checked" : ""} onchange="toggleTaskStatus(${index}, this.checked)">
+                    </td>
+                `;
+                taskList.appendChild(newRow);
+            });
+        }
+
+        // Function to edit a task
+        function editTask(index) {
+            // Redirect to the edit page with the task ID as a parameter
+            window.location.href = `editar.html?task=${index}`;
+        }
+
+        // Function to remove a task
+        function removeTask(index) {
+            var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.splice(index, 1);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            displayTasks();
+        }
+
+        // Function to toggle the status of a task between Pending and Done
+        function toggleTaskStatus(index, checked) {
+            var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks[index].status = checked ? "Done" : "Pending";
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            displayTasks();
+        }
+
+        // Call the function to display saved tasks when the page loads
+        displayTasks();
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles2.css">
+    <title>Edit Task</title>
+</head>
+<body>
+    <h2>Edit Task</h2>
+      <div class="editar">
+
+    <!-- Formulário para editar a tarefa -->
+    <form id="edit-task-form">
+        <label for="task-name">Task Name:</label><br>
+        <input type="text" id="task-name" name="task-name" required><br><br>
+
+        <label for="task-date">Task Date:</label><br>
+        <input type="date" id="task-date" name="task-date" required><br><br>
+
+        <input type="submit" value="Save Changes">  
+        <button onclick="goBack()">Discard Changes</button>  
+    </form>
+       </div>
+
+    <script>
+        // Função para carregar os detalhes da tarefa a ser editada
+        window.onload = function() {
+            // Obtém o ID da tarefa da URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var taskId = urlParams.get('task');
+
+            // Recupera os detalhes da tarefa da localStorage
+            var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            var task = tasks[taskId];
+
+            // Preenche o formulário com os detalhes da tarefa
+            document.getElementById("task-name").value = task.name;
+            document.getElementById("task-date").value = task.date;
+        };
+
+        // Função para salvar as alterações na tarefa
+        document.getElementById("edit-task-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita o envio do formulário
+
+            // Obtém os valores do formulário
+            var editedTaskName = document.getElementById("task-name").value;
+            var editedTaskDate = document.getElementById("task-date").value;
+
+            // Obtém o ID da tarefa da URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var taskId = urlParams.get('task');
+
+            // Recupera a lista de tarefas da localStorage e atualiza a tarefa editada
+            var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks[taskId].name = editedTaskName;
+            tasks[taskId].date = editedTaskDate;
+
+            // Salva as alterações na localStorage
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+
+            // Redireciona de volta para a página de tarefas
+            window.location.href = "tarefas.html";
+        });
+    </script>
+</body>
+</html>
